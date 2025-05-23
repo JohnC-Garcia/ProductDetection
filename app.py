@@ -1,9 +1,8 @@
 import streamlit as st
-from ultralytics import RTDETR
+from ultralytics import YOLO
 from PIL import Image
 import cv2
 import tempfile
-import os
 import numpy as np
 
 st.set_page_config(page_title="Retail Vegetable Detection Demo")
@@ -13,7 +12,7 @@ st.write("This demo simulates detection only for the first few frames if the fil
 
 @st.cache_resource
 def load_model():
-    return RTDETR("yolo11n_best.pt", task="detect", data="data.yml")
+    return YOLO("yolo11n_best.pt", task="detect", data="data.yml")
 
 model = load_model()
 
