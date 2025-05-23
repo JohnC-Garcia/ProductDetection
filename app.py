@@ -7,7 +7,7 @@ import numpy as np
 
 st.set_page_config(page_title="Retail Vegetable Detection Demo")
 
-st.title("Vegetable Detection on Retail Store Shelves")
+st.title("Product Detection on Retail Store Shelves")
 st.write("This demo simulates detection only for the first few frames if the file uploaded is a video.")
 
 @st.cache_resource
