@@ -12,7 +12,7 @@ st.write("This demo simulates detection only for the first few frames if the fil
 
 @st.cache_resource
 def load_model():
-    return YOLO("yolo11n_best.pt")
+    return YOLO("yolo11n_best.pt")  
 
 model = load_model()
 
@@ -49,7 +49,8 @@ if uploaded_file:
                 break
             if frame_count % 10 == 0:
                 frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                result = model(frame_rgb)
+                frame_pil = Image.fromarray(frame_rgb) 
+                result = model(frame_pil)
                 annotated = result[0].plot()
 
                 orig_with_number = draw_frame_number_rgb(frame_rgb, frame_count)
