@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 59
+names: ['Apple', 'Apricot', 'Banana', 'Beetroot', 'Black_Grapes', 'Broccoli', 'Cabbage', 'Carrot', 'Cauliflower', 'Cherry_Tomato_Red', 'Chinese_Cabbage', 'Crown_White_Pear', 'Cucumber', 'Fuji_Apple', 'Garlic', 'Granny_smith_apple', 'Grape_Fruit', 'Green_Bell_Pepper', 'Green_Chilli_Pepper', 'Green_zucchini', 'Hass_Avacado', 'Lemon', 'Lettuce', 'Lime', 'Mango', 'Melon', 'Meyer_Lemon', 'Nectarine_Peach', 'Onion_White', 'Orange', 'Peach', 'Pear_Williams_Rouge', 'Pink_Grapes', 'Pomegranate', 'Potato', 'Pumkin', 'Radish', 'RedBell_pepper', 'Red_Chilli', 'Red_Chilli_Pepper', 'Red_Onion', 'Red_Radish', 'Red_Tomato', 'Red_pomelo', 'Sweet_Corn', 'Sweet_potato', 'Watermelon', 'White_zucchini', 'Yellow_Bell_Pepper', 'Yellow_Cherry_Tomato', 'Yellow_Tomato', 'avacado', 'grapes', 'kiwi', 'pear', 'pink_plum', 'plum', 'pomelo', 'purple_plum']
+
+roboflow:
+  workspace: cogniron
+  project: retail-vegetable-dataset
+  version: 3
+  license: Private
+  url: https://universe.roboflow.com/cogniron/retail-vegetable-dataset/dataset/3
