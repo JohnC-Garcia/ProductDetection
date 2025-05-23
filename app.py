@@ -12,7 +12,7 @@ st.write("This demo simulates detection only for the first few frames if the fil
 
 @st.cache_resource
 def load_model():
-    return YOLO("yolo11n_best.pt", task="detect", data="data.yml")
+    return YOLO("yolo11n_best.pt")
 
 model = load_model()
 
