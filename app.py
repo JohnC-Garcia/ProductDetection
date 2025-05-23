@@ -13,8 +13,7 @@ st.write("This demo simulates detection only for the first few frames if the fil
 
 @st.cache_resource
 def load_model():
-    # Adjust the model path to the correct weights file you've trained
-    return RTDETR("vegetable_weights.pt", task="detect", data="data.yml")
+    return RTDETR("yolo11n_best.pt", task="detect", data="data.yml")
 
 model = load_model()
 
