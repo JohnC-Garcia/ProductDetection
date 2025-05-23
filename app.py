@@ -66,6 +66,6 @@ if uploaded_file:
             st.markdown(f"**Frame {i+1}**")
             col1, col2 = st.columns(2)
             with col1:
-                st.image(original, caption="Original", use_column_width=True)
+                st.image(original, caption="Original", use_container_width=True)
             with col2:
-                st.image(labeled, caption="With Labels", use_column_width=True)
+                st.image(labeled, caption="With Labels", use_container_width=True)
