@@ -4,15 +4,17 @@ from PIL import Image
 import cv2
 import tempfile
 import numpy as np
+import zipfile
+import io
+import os
 
 st.set_page_config(page_title="Retail Vegetable Detection Demo")
-
 st.title("Product Detection on Retail Store Shelves")
 st.write("This demo simulates detection only for the first few frames if the file uploaded is a video.")
 
 @st.cache_resource
 def load_model():
-    return YOLO("yolo11n_best.pt")  
+    return YOLO("yolo11n_best.pt")
 
 model = load_model()
 
@@ -42,6 +44,7 @@ if uploaded_file:
         cap = cv2.VideoCapture(tfile.name)
         frame_count = 0
         preview_pairs = []
+        annotated_images = []
 
         while cap.isOpened() and len(preview_pairs) < 5:
             ret, frame = cap.read()
@@ -51,12 +54,16 @@ if uploaded_file:
                 frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_pil = Image.fromarray(frame_rgb) 
                 result = model(frame_pil)
-                annotated = result[0].plot()
+
+                # Convert plot to RGB for correct display
+                annotated_bgr = result[0].plot()
+                annotated = cv2.cvtColor(annotated_bgr, cv2.COLOR_BGR2RGB)
 
                 orig_with_number = draw_frame_number_rgb(frame_rgb, frame_count)
                 annotated_with_number = draw_frame_number_rgb(annotated, frame_count)
 
                 preview_pairs.append((orig_with_number, annotated_with_number))
+                annotated_images.append(Image.fromarray(annotated_with_number))
             frame_count += 1
 
         cap.release()
@@ -69,3 +76,18 @@ if uploaded_file:
                 st.image(original, caption="Original", use_container_width=True)
             with col2:
                 st.image(labeled, caption="With Labels", use_container_width=True)
+
+        # Create a ZIP file in memory
+        zip_buffer = io.BytesIO()
+        with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_DEFLATED) as zip_file:
+            for idx, image in enumerate(annotated_images):
+                img_byte_arr = io.BytesIO()
+                image.save(img_byte_arr, format='PNG')
+                zip_file.writestr(f"annotated_frame_{idx + 1}.png", img_byte_arr.getvalue())
+
+        st.download_button(
+            label="📥 Download Annotated Frames (ZIP)",
+            data=zip_buffer.getvalue(),
+            file_name="annotated_frames.zip",
+            mime="application/zip"
+        )
